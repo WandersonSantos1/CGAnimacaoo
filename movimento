@@ -1,0 +1,46 @@
+import pygame
+
+# Inicialização do Pygame
+pygame.init()
+
+# Configuração da janela
+largura = 240
+altura = 250
+janela = pygame.display.set_mode((largura, altura))
+
+# Carregamento das imagens dos frames
+frames = []
+for i in range(81):  # Todas as imagens estão numeradas como frame_ 0 a 80
+    filename = "C:\\Users\\wanns\\Desktop\\CG-Benc\\frames\\frame_{}.png".format(i)
+    frame = pygame.image.load(filename)
+    frames.append(frame)
+
+# Carregamento do arquivo de som
+pygame.mixer.music.load("C:\\Users\\wanns\\Desktop\\CG-Benc\\song\\LuizGonzaga•OCheiro da Karolina.mp3")
+
+# Definição de variáveis
+frame_atual = 0
+clock = pygame.time.Clock()
+fps = 10  # Frames por segundo (0,5 segundos entre cada frame)
+
+# Reproduzir o som
+pygame.mixer.music.play()
+
+# Loop principal do deseho
+while True:
+    for evento in pygame.event.get():
+        if evento.type == pygame.QUIT:
+            pygame.quit()
+            exit()
+
+    # Verificação da mudança de frame
+    frame_atual = (frame_atual + 1) % len(frames)  # Loop contínuo dos frames
+
+    # Desenho do frame atual na janela
+    janela.blit(frames[frame_atual], (0, 0))
+
+    # Atualização da tela
+    pygame.display.flip()
+
+    # Limitação de FPS
+    clock.tick(fps)
